@@ -1,19 +1,19 @@
-package railo.extension.util;
+package lucee.extension.util;
 
 import java.lang.reflect.Method;
 
-import railo.loader.engine.CFMLEngine;
-import railo.loader.engine.CFMLEngineFactory;
-import railo.runtime.PageContext;
-import railo.runtime.exp.PageException;
-import railo.runtime.util.Cast;
+import lucee.loader.engine.CFMLEngine;
+import lucee.loader.engine.CFMLEngineFactory;
+import lucee.runtime.PageContext;
+import lucee.runtime.exp.PageException;
+import lucee.runtime.util.Cast;
 
 public class Functions {
 
-	private static final String SERIALIZE_JSON_CLASS="railo.runtime.functions.conversion.SerializeJSON";
-	private static final String SERIALIZE_CLASS="railo.runtime.functions.dynamicEvaluation.Serialize";
-	private static final String EVALUATE_CLASS="railo.runtime.functions.dynamicEvaluation.Evaluate";
-	private static final String DESERIALIZE_JSON_CLASS="railo.runtime.functions.conversion.DeserializeJSON";
+	private static final String SERIALIZE_JSON_CLASS="lucee.runtime.functions.conversion.SerializeJSON";
+	private static final String SERIALIZE_CLASS="lucee.runtime.functions.dynamicEvaluation.Serialize";
+	private static final String EVALUATE_CLASS="lucee.runtime.functions.dynamicEvaluation.Evaluate";
+	private static final String DESERIALIZE_JSON_CLASS="lucee.runtime.functions.conversion.DeserializeJSON";
 	
 	private Method serializeJSON;
 	private Method deserializeJSON;

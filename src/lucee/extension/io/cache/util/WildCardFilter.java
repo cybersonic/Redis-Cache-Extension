@@ -1,4 +1,4 @@
-package railo.extension.io.cache.util;
+package lucee.extension.io.cache.util;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -6,7 +6,7 @@ import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 
-import railo.commons.io.cache.CacheKeyFilter;
+import lucee.commons.io.cache.CacheKeyFilter;
 
 /**
  * Wildcard Filter
