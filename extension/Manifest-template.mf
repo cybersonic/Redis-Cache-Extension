@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Built-Date: {created}
+version: "{version}"
+id: "10EEC23A-0779-4068-9507A9C5ED4A8666"
+name: "Redis Cache"
+description: "Redis Cache Extension"
+author: Andrea Campolonghi
+start-bundles: false
+trial: false
+lucee-core-version: "4.5.0.0"
+

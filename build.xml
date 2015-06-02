@@ -27,9 +27,10 @@
 
 
          <echo message="restart railo"/>
-		 <get src="http://${server.name}:${server.port}${server.context}/reload.cfm" dest="output/output.html" ignoreerrors="false" />
+		 <get src="http://${server.name}:${server.port}${server.context}/reload.cfm?password=${admin.password}" dest="output/output.html" ignoreerrors="false" />
 	</target>
 
+	
 	<target name="compressExtension" depends="replaceConfigVars">
 		<zip destfile="build/redis-cache.zip" basedir="${project.extPath}">
 			<exclude name="**/src/**"/>
@@ -73,8 +74,53 @@
 		<delete dir="build/" includes="*.zip"/>
 		<delete dir="output/" includes="*.html"/>
 		<delete file="${project.extPath}/config.xml" />
+		<delete dir="${basedir}/lexbuild"/>
 		<mkdir dir="${project.extPath}/lib/" />
         <mkdir dir="${basedir}/output"/>
+	    <mkdir dir="${basedir}/lexbuild"/>
+	</target>
+	
+	
+	<target name="createManifest">
+		
+		<copy file="${project.extPath}/Manifest-template.mf" tofile="${basedir}/lexbuild/META-INF/Manifest.mf" overwrite="true" />
+		<replace file="${basedir}/lexbuild/META-INF/Manifest.mf" token="{version}" value="${version}.${stamp.DSTAMP}${stamp.TSTAMP}" />
+		<replace file="${basedir}/lexbuild/META-INF/Manifest.mf" token="{created}" value="${created.TODAY} ${created.TSTAMP}" />
+		
+	</target>
+	<target name="createlex" depends="copyLibs,createManifest,replaceConfigVars">
+		<!-- copy the libs to the lexlib folder -->
+			<copy todir="${basedir}/lexbuild/lib">
+				    <fileset dir="lib/">
+		                <exclude name="jsp-api-2.0.jar"/>
+				    </fileset>
+			</copy>
+			<copy todir="${basedir}/lexbuild/jar" file="extension/lib/redis-cache.jar">
+				    
+			</copy>
+		<copy todir="${basedir}/lexbuild/" file="extension/config.xml">
+					    
+		</copy>
+		
+		<!-- copy the cdriver -->
+		 <copy todir="${basedir}/lexbuild/cdriver/" overwrite="true">
+		             <fileset dir="${project.extPath}/driver" includes="*cfc"/>
+		  </copy>
+		
+		<zip destfile="build/redis-cache.lex" basedir="${basedir}/lexbuild/">
+					<exclude name="**/src/**"/>
+					<exclude name="**/bin/**"/>
+		            <exclude name="config.template.xml"/>
+		</zip>
 	</target>
 
+	<target name="deploylex" depends="createlex">
+			<!-- copy the .lex file to the deploy folder of a running instance of lucee -->
+				<copy todir="${deploydir}" file="build/redis-cache.lex">
+					    
+				</copy>
+				
+		</target>
+	
+	
 </project>
